@@ -68,7 +68,13 @@ find_program(QUARTUS_SH quartus_sh
 find_program(QUARTUS_QSYS_GENERATE qsys-generate
     HINTS ${QUARTUS_HINTS}
     PATH_SUFFIXES ../qsys/bin ../qsys/bin64 ../sopc_builder/bin
-    DOC "Path to the Quartus Qsys generate script"
+    DOC "Path to the Quartus Qsys generate"
+)
+
+find_program(QUARTUS_QSYS_SCRIPT qsys-script
+    HINTS ${QUARTUS_HINTS}
+    PATH_SUFFIXES ../qsys/bin ../qsys/bin64 ../sopc_builder/bin
+    DOC "Path to the Quartus Qsys script"
 )
 
 if (QUARTUS_SH)
@@ -98,8 +104,14 @@ mark_as_advanced(QUARTUS_EXECUTABLE)
 mark_as_advanced(QUARTUS_SH)
 mark_as_advanced(QUARTUS_MAP)
 mark_as_advanced(QUARTUS_SYN)
+mark_as_advanced(QUARTUS_QSYS_SCRIPT)
 mark_as_advanced(QUARTUS_QSYS_GENERATE)
 
 find_package_handle_standard_args(Quartus REQUIRED_VARS
-    QUARTUS_EXECUTABLE QUARTUS_MAP QUARTUS_SYN
-    QUARTUS_SH QUARTUS_QSYS_GENERATE)
+    QUARTUS_EXECUTABLE
+    QUARTUS_MAP
+    QUARTUS_SYN
+    QUARTUS_SH
+    QUARTUS_QSYS_SCRIPT
+    QUARTUS_QSYS_GENERATE
+)

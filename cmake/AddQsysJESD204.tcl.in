@@ -1,0 +1,81 @@
+# qsys scripting (.tcl) file for JESD204
+package require -exact qsys 16.0
+
+create_system {@target_name@}
+
+set_project_property DEVICE_FAMILY {@ARG_DEVICE_FAMILY@}
+set_project_property DEVICE {@ARG_DEVICE@}
+set_project_property HIDE_FROM_IP_CATALOG {true}
+
+# Instances and instance parameters
+# (disabled instances are intentionally culled)
+add_instance jesd204_0 altera_jesd204 17.1
+set_instance_parameter_value jesd204_0 {ADJCNT} {0}
+set_instance_parameter_value jesd204_0 {ADJDIR} {0}
+set_instance_parameter_value jesd204_0 {BID} {0}
+set_instance_parameter_value jesd204_0 {CF} {0}
+set_instance_parameter_value jesd204_0 {CS} {0}
+set_instance_parameter_value jesd204_0 {DATA_PATH} {@ARG_DATA_PATH@}
+set_instance_parameter_value jesd204_0 {DID} {0}
+set_instance_parameter_value jesd204_0 {DLB_TEST} {0}
+set_instance_parameter_value jesd204_0 {ECC_EN} {0}
+set_instance_parameter_value jesd204_0 {ED_DEV_KIT} {NONE}
+set_instance_parameter_value jesd204_0 {ED_FILESET_SIM} {0}
+set_instance_parameter_value jesd204_0 {ED_FILESET_SYNTH} {0}
+set_instance_parameter_value jesd204_0 {ED_GENERIC_5SERIES} {No}
+set_instance_parameter_value jesd204_0 {ED_GENERIC_A10} {No}
+set_instance_parameter_value jesd204_0 {ED_GENERIC_S10} {No}
+set_instance_parameter_value jesd204_0 {ED_HDL_FORMAT_SIM} {VERILOG}
+set_instance_parameter_value jesd204_0 {ED_HDL_FORMAT_SYNTH} {VERILOG}
+set_instance_parameter_value jesd204_0 {GUI_CFG_F} {4}
+set_instance_parameter_value jesd204_0 {GUI_EN_CFG_F} {0}
+set_instance_parameter_value jesd204_0 {HD} {0}
+set_instance_parameter_value jesd204_0 {JESDV} {1}
+set_instance_parameter_value jesd204_0 {K} {16}
+set_instance_parameter_value jesd204_0 {L} {1}
+set_instance_parameter_value jesd204_0 {LID0} {0}
+set_instance_parameter_value jesd204_0 {LID1} {1}
+set_instance_parameter_value jesd204_0 {LID2} {2}
+set_instance_parameter_value jesd204_0 {LID3} {3}
+set_instance_parameter_value jesd204_0 {LID4} {4}
+set_instance_parameter_value jesd204_0 {LID5} {5}
+set_instance_parameter_value jesd204_0 {LID6} {6}
+set_instance_parameter_value jesd204_0 {LID7} {7}
+set_instance_parameter_value jesd204_0 {M} {2}
+set_instance_parameter_value jesd204_0 {N} {12}
+set_instance_parameter_value jesd204_0 {N_PRIME} {16}
+set_instance_parameter_value jesd204_0 {OPTIMIZE} {0}
+set_instance_parameter_value jesd204_0 {PCS_CONFIG} {JESD_PCS_CFG1}
+set_instance_parameter_value jesd204_0 {PHADJ} {0}
+set_instance_parameter_value jesd204_0 {REFCLK_FREQ} {153.6}
+set_instance_parameter_value jesd204_0 {RES1} {0}
+set_instance_parameter_value jesd204_0 {RES2} {0}
+set_instance_parameter_value jesd204_0 {S} {1}
+set_instance_parameter_value jesd204_0 {SCR} {0}
+set_instance_parameter_value jesd204_0 {SUBCLASSV} {1}
+set_instance_parameter_value jesd204_0 {TERMINATE_RECONFIG_EN} {0}
+set_instance_parameter_value jesd204_0 {TEST_COMPONENTS_EN} {0}
+set_instance_parameter_value jesd204_0 {bitrev_en} {0}
+set_instance_parameter_value jesd204_0 {bonded_mode} {bonded}
+set_instance_parameter_value jesd204_0 {lane_rate} {3072.0}
+set_instance_parameter_value jesd204_0 {pll_reconfig_enable} {1}
+set_instance_parameter_value jesd204_0 {pll_type} {CMU}
+set_instance_parameter_value jesd204_0 {rcfg_jtag_enable} {0}
+set_instance_parameter_value jesd204_0 {rcfg_shared} {1}
+set_instance_parameter_value jesd204_0 {sdc_constraint} {1.0}
+set_instance_parameter_value jesd204_0 {set_capability_reg_enable} {0}
+set_instance_parameter_value jesd204_0 {set_csr_soft_logic_enable} {0}
+set_instance_parameter_value jesd204_0 {set_prbs_soft_logic_enable} {0}
+set_instance_parameter_value jesd204_0 {set_user_identifier} {0}
+set_instance_parameter_value jesd204_0 {wrapper_opt} {base_phy}
+
+# exported interfaces
+set_instance_property jesd204_0 AUTO_EXPORT {true}
+
+# interconnect requirements
+set_interconnect_requirement {$system} {qsys_mm.clockCrossingAdapter} {HANDSHAKE}
+set_interconnect_requirement {$system} {qsys_mm.enableEccProtection} {FALSE}
+set_interconnect_requirement {$system} {qsys_mm.insertDefaultSlave} {FALSE}
+set_interconnect_requirement {$system} {qsys_mm.maxAdditionalLatency} {1}
+
+save_system {@target_name@.qsys}
