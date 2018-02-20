@@ -17,11 +17,15 @@
 #define LOGIC_AXI4_STREAM_BUS_IF_BASE_HPP
 
 #include "logic/bitstream.hpp"
+#include "logic/range.hpp"
+#include "logic/span.hpp"
 
 #include <systemc>
 
 #include <cstddef>
 #include <cstdint>
+#include <random>
+#include <vector>
 
 namespace logic {
 namespace axi4 {
@@ -36,6 +40,14 @@ public:
     sc_core::sc_signal<bool> tlast;
 
     explicit bus_if_base(const sc_core::sc_module_name& name);
+
+    void write(const span<std::uint8_t>& data, std::size_t id = 0,
+            std::size_t dest = 0, std::size_t idle_max = 0,
+            std::size_t idle_min = 0);
+
+    void read(std::vector<std::uint8_t>& data, std::size_t id = 0,
+            std::size_t dest = 0, std::size_t idle_max = 0,
+            std::size_t idle_min = 0);
 
     void aclk_posedge();
 
@@ -90,6 +102,8 @@ public:
     bus_if_base& operator=(const bus_if_base&) = delete;
 
     ~bus_if_base() override;
+private:
+    std::mt19937 m_random_generator;
 };
 
 } /* namespace stream */
